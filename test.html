@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to encode a string in base-64.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p><strong>Note:</strong> The btoa() method is not supported in IE9 and earlier.</p>
+
+<p id="demo"></p>
+<input type="file" />
+
+<script>
+// get a reference to the file input
+  const fileInput = document.querySelector("input");
+
+  // listen for the change event so we can capture the file
+  fileInput.addEventListener("change", (e) => {
+    // get a reference to the file
+    const file = e.target.files[0];
+
+    // encode the file using the FileReader API
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      // use a regex to remove data url part
+      const base64String = reader.result
+        .replace("data:", "")
+        .replace(/^.+,/, "");
+
+      // log to console
+      // logs wL2dvYWwgbW9yZ...
+      console.log(base64String);
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
+
+</body>
+</html>
